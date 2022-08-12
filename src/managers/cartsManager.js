@@ -7,35 +7,65 @@ class cartManager {
         try {
             if (fs.existsSync(path)) {
                 let fileData = await fs.promises.readFile(path, 'utf-8');
-                let products = JSON.parse(fileData)
-                return products;
+                let carts = JSON.parse(fileData)
+                return carts;
             }else{
                 return "No hay productos";
             }} catch (error) {console.log("Cannot write file: "+error)};
     }
 
-    createCart = async (product) => {
+    createCart = async () => {
         try{
-            let products = await this.getAllCarts();
-            if(products.length === 0){
-                product.id=1;
-                product.timestamp = new Date().toLocaleString();
-                products.push(product);
-                await fs.promises.writeFile(path,JSON.stringify(products,null,'\t'));
-                return products[product.id] + product.id
+            let cart = {}
+            let carts = await this.getAllCarts();
+            if(carts.length === 0){
+                cart.id = 1;
+                cart.timestamp = new Date().toLocaleString();
+                carts.push(cart);
+                await fs.promises.writeFile(path,JSON.stringify(carts,null,'\t'));
+                return 1
             }else{
-                product.id = products[products.length-1].id+1;
-                product.timestamp = new Date().toLocaleString();
-                products.push(product);
-                await fs.promises.writeFile(path,JSON.stringify(products,null,'\t'));
+                cart.id = carts[carts.length-1].id+1;
+                cart.timestamp = new Date().toLocaleString();
+                carts.push(cart);
+                await fs.promises.writeFile(path,JSON.stringify(carts,null,'\t'));
             }
-            return [product]
+            return cart.id
         }catch(error){
             console.log("Cannot write file: "+error)
         }
         
     }
 
+    deleteCartById = async (id) =>{
+        try {
+            let carts = await this.getAllCarts();
+            if (id-1 <= carts.length){
+                carts.splice(id-1,1)
+                await fs.promises.writeFile(path,JSON.stringify(carts,null,'\t'));
+            }else{
+                return 1
+            }
+            
+        } catch (error) {
+            console.log(error + "Deleting product")
+        }
+    }
+    
+    getProductsById = async (id) =>{
+        try {
+            let carts = await this.getAllCarts();
+            if (id-1 <= carts.length){
+                let cart = carts[id-1].products
+                return cart
+            }else{
+                return 1
+            }
+            
+        } catch (error) {
+            console.log(`El producto ID=> ${id} no existe`)  
+        }
+    }
     replaceProduct = async (product,id) => {
         let products = await this.getAllProducts();
         console.log(1)
@@ -49,42 +79,7 @@ class cartManager {
         }
     }
     
-    getProductById = async (id) =>{
-        try {
-            let products = await this.getAllProducts();
-            if (id-1 <= products.length){
-                return products[[id-1]]
-            }else{
-                return 1
-            }
-            
-        } catch (error) {
-            console.log(`El producto ID=> ${id} no existe`)  
-        }
-    }
 
-    deleteProductById = async (id) =>{
-        try {
-            let products = await this.getAllProducts();
-            if (id-1 <= products.length){
-                products.splice(id-1,1)
-                await fs.promises.writeFile(path,JSON.stringify(products,null,'\t'));
-            }else{
-                return 1
-            }
-            
-        } catch (error) {
-            console.log(error + "Deleting product")
-        }
-    }
-
-    deletAllProducts = async () =>{
-        try {
-            await fs.promises.writeFile(path,"[]");
-        } catch (error) {
-            console.log(error)
-        }
-    }
 }
 
 
