@@ -34,18 +34,22 @@ router.get('/carts/:ID/products',(req,res)=>{
     enviroment()
 })
 
-router.post('/carts/:ID/productID',(req,res)=>{
+router.post('/carts/:ID/:productID',(req,res)=>{
     const enviroment = async () =>{
-        let id = req.paramsID
-        
-
+        let id = req.params.ID
+        let productId = req.params.productID
+        let product = await productService.getProductById(productId)
+        await cartService.addProductToCart(id,product)
+        res.send("HOLA")
     }
     enviroment()
 })
 
-router.post('/carts',(req,res)=>{
+router.delete('/carts/:ID/products/:productID',(req,res)=>{
     const enviroment = async () =>{
-
+        let id = req.params.ID
+        let productId = req.params.productID
+        
     }
     enviroment()
 })
