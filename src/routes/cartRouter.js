@@ -49,7 +49,8 @@ router.delete('/carts/:ID/products/:productID',(req,res)=>{
     const enviroment = async () =>{
         let id = req.params.ID
         let productId = req.params.productID
-        
+        await cartService.deleteProductFromCart(id,productId)
+        res.send("nice")
     }
     enviroment()
 })

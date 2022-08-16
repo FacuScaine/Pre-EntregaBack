@@ -80,11 +80,9 @@ class cartManager {
         let carts = await this.getAllCarts();
         let cart = carts[id-1]
         let newCart = cart.products.filter(id => id.id != productId)
-        
-        
+        cart.products = newCart
+        await fs.promises.writeFile(path,JSON.stringify(carts,null,'\t'));
     }
-    
-
 }
 
 
