@@ -9,81 +9,91 @@ class cartManager {
                 let fileData = await fs.promises.readFile(path, 'utf-8');
                 let carts = JSON.parse(fileData)
                 return carts;
-            }else{
+            } else {
                 return "No hay productos";
-            }} catch (error) {console.log("Cannot write file: "+error)};
+            }
+        } catch (error) { console.log(error) };
     }
 
     createCart = async () => {
-        try{
+        try {
             let cart = {}
             let carts = await this.getAllCarts();
-            if(carts.length === 0){
+            if (carts.length === 0) {
                 cart.id = 1;
                 cart.timestamp = new Date().toLocaleString();
                 cart.products = []
                 carts.push(cart);
-                await fs.promises.writeFile(path,JSON.stringify(carts,null,'\t'));
-                return 1
-            }else{
-                cart.id = carts[carts.length-1].id+1;
+                await fs.promises.writeFile(path, JSON.stringify(carts, null, '\t'));
+                return `Carrito creado con id:${cart.id}`
+            } else {
+                cart.id = carts[carts.length - 1].id + 1;
                 cart.timestamp = new Date().toLocaleString();
                 cart.products = []
                 carts.push(cart);
-                await fs.promises.writeFile(path,JSON.stringify(carts,null,'\t'));
+                await fs.promises.writeFile(path, JSON.stringify(carts, null, '\t'));
+                return `Carrito creado con id:${cart.id}`
             }
-            return cart.id
-        }catch(error){
-            console.log("Cannot write file: "+error)
-        }
-        
+        } catch (error) { console.log(error) }
+
     }
 
-    deleteCartById = async (id) =>{
+    deleteCartById = async (id) => {
         try {
             let carts = await this.getAllCarts();
-            if (id-1 <= carts.length){
-                carts.splice(id-1,1)
-                await fs.promises.writeFile(path,JSON.stringify(carts,null,'\t'));
-            }else{
-                return 1
+            if (id <= carts.length) {
+                carts.splice(id - 1, 1)
+                await fs.promises.writeFile(path, JSON.stringify(carts, null, '\t'));
+                return `Producto Id:${id} eliminado correctamente`
+            } else {
+                return `ID ${id} inexistente`
             }
-            
-        } catch (error) {
-            console.log(error + "Deleting product")
-        }
+
+        } catch (error) { console.log(error) }
     }
-    
-    getProductsById = async (id) =>{
+
+    getProductsById = async (id) => {
         try {
             let carts = await this.getAllCarts();
-            if (id-1 <= carts.length){
-                let cart = carts[id-1].products
+            if (id <= carts.length) {
+                let cart = carts[id - 1].products
                 return cart
-            }else{
-                return 1
+            } else {
+                return `ID ${id} inexistente`
             }
-            
-        } catch (error) {
-            console.log(`El producto ID=> ${id} no existe`)  
-        }
+
+        } catch (error) { console.log(error) }
     };
 
     addProductToCart = async (id, product) => {
-        let carts = await this.getAllCarts()
-        let cart = carts[id-1]
-        cart.products.push(product)
-        await fs.promises.writeFile(path,JSON.stringify(carts,null,'\t'));
+        try {
+            let carts = await this.getAllCarts()
+            if (id <= carts.length) {
+                let cart = carts[id - 1]
+                cart.products.push(product)
+                await fs.promises.writeFile(path, JSON.stringify(carts, null, '\t'));
+                return `Producto ${id} añadido correctamente`
+            } else {
+                return `ID ${id} inexistente`
+            }
+
+        } catch (error) { console.log(error) }
     };
 
-    deleteProductFromCart = async (id,productId) => {
-        let carts = await this.getAllCarts();
-        let cart = carts[id-1]
-        let newCart = cart.products.filter(id => id.id != productId)
-        cart.products = newCart
-        await fs.promises.writeFile(path,JSON.stringify(carts,null,'\t'));
+    deleteProductFromCart = async (id, productId) => {
+        try {
+            let carts = await this.getAllCarts();
+            if(id <= carts.length){
+                let cart = carts[id - 1]
+                let newCart = cart.products.filter(id => id.id != productId)
+                cart.products = newCart
+                await fs.promises.writeFile(path, JSON.stringify(carts, null, '\t'));
+                return `Producto ${productId} eliminado correctamente`
+            }else{
+                return `ID ${id} inexistente`
+            }
+        } catch (error) { console.log(error) }
     }
 }
-
 
 export default cartManager;

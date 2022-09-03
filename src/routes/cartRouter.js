@@ -1,58 +1,64 @@
-import { Router } from "express";
-import cartManager from "../managers/cartsManager.js";
-import productManager from '../managers/productsManager.js'
+// import { Router } from "express";
+// import cartManager from "../managers/cartsManager.js";
+// import productManager from '../managers/productsManager.js'
 
-const cartService = new cartManager();
-const productService = new productManager();
+// const cartService = new cartManager();
+// const productService = new productManager();
 
-const router = Router();
+// const router = Router();
 
-router.post('/carts',(req,res)=>{
-    const enviroment = async () =>{
-        let newCart = await cartService.createCart();
+// router.post('/carts', async (req, res) => {
+//     try {
+//         let answ = await cartService.createCart();
+//         res.send(answ)
+//     } catch (error) {
+//         res.status(500).send("Cannot get Carts");
+//     }
 
-        res.send("Carrito Creado ID: " + newCart)
-    }
-    enviroment()
-})
+// })
 
-router.delete('/carts/:ID',(req,res)=>{
-    const enviroment = async () =>{
-        let id = req.params.ID
-        await cartService.deleteCartById(id)
-        res.send(`Carrito ID:${id} eliminado`)
-    }
-    enviroment()
-})
+// router.delete('/carts/:ID', async (req, res) => {
+//     try {
+//         let id = req.params.ID;
+//         let answ = await cartService.deleteCartById(id);
+//         res.send(answ)
+//     } catch (error) {
+//         res.status(500).send("Error al buscar un carrito por su ID");
+//     }
+// })
 
-router.get('/carts/:ID/products',(req,res)=>{
-    const enviroment = async () =>{
-        let id = req.params.ID
-        let cartProducts = await cartService.getProductsById(id)
-        res.send(cartProducts)
-    }
-    enviroment()
-})
+// router.get('/carts/:ID/products', async(req, res) => {
+//     try {
+//         let id = req.params.ID;
+//         let answ = await cartService.getProductsById(id);
+//         res.send(answ)
+//     } catch (error) {
+//         res.status(500).send("Error al buscar productos de un carrito");
+//     }
+// })
 
-router.post('/carts/:ID/:productID',(req,res)=>{
-    const enviroment = async () =>{
-        let id = req.params.ID
-        let productId = req.params.productID
-        let product = await productService.getProductById(productId)
-        await cartService.addProductToCart(id,product)
-        res.send("HOLA")
-    }
-    enviroment()
-})
+// router.post('/carts/:ID/:productID', async(req, res) => {
+//     try {
+//         let id = req.params.ID;
+//         let productId = req.params.productID;
+//         let product = await productService.getProductById(productId);
+//         let answ = await cartService.addProductToCart(id, product)
+//         res.send(answ)
+//     } catch (error) {
+//         res.status(500).send("Error al añadir producto");
+//     }
 
-router.delete('/carts/:ID/products/:productID',(req,res)=>{
-    const enviroment = async () =>{
-        let id = req.params.ID
-        let productId = req.params.productID
-        await cartService.deleteProductFromCart(id,productId)
-        res.send("nice")
-    }
-    enviroment()
-})
+// })
 
-export default router
+// router.delete('/carts/:ID/products/:productID', async(req, res) => {
+//     try {
+//         let id = req.params.ID;
+//         let productId = req.params.productID;
+//         let answ = await cartService.deleteProductFromCart(id, productId);
+//         res.send(answ)
+//     } catch (error) {
+//         res.status(500).send("Error al eliminar producto por su ID");
+//     }
+// })
+
+// export default router

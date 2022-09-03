@@ -1,52 +1,60 @@
 import { Router } from "express";
-import productManager from "../managers/productsManager.js";
+import services from '../DAO/index.js'
+
 import userLicense from "../middlewares/usersLicense.js";
 
 const router = Router();
 
-const productService = new productManager();
+router.get('/products', async (req, res) => {
+        try {
+                let resp = await services.productService.getAll();
+                res.send(resp)
 
-router.get('/products',(req,res)=>{
-    const enviroment = async () =>{
-        let products = await productService.getAllProducts();
-        res.send(products)
-    }
-    enviroment()
+        } catch (error) {
+                res.status(500).send("Error al buscar productos");
+        }
+
 });
 
-router.get('/products/:ID',(req,res)=>{
-    const enviroment = async () =>{
-        let id = req.params.ID
-        let products = await productService.getProductById(id);
-        res.send(products)
-    }
-    enviroment()
+router.get('/products/:ID', async (req, res) => {
+        try {
+                let id = req.params.ID
+                let resp = await services.productService.getOne(id);
+                res.send(resp)
+        } catch (error) {
+                res.status(500).send("Error al buscar producto mediante ID");
+        }
 });
 
-router.put('/products/:ID',userLicense,(req,res)=>{
-    const enviroment = async () =>{
-        let id = req.params.ID
-        let newProduct = req.body
-        await productService.replaceProduct(newProduct,id)
-    };
-    enviroment()
-})
-
-router.post('/products',userLicense,(req,res)=>{
-    const enviroment = async () =>{
-        let user = req.body
-        productService.saveProduct(user)
-        res.send("Producto añadido")
-    }
-    enviroment()
+router.put('/products/:ID', userLicense, async (req, res) => {
+        try {
+                let id = req.params.ID
+                let product = req.body
+                let resp = await services.productService.update(product,id)
+                res.send(resp)
+        } catch (error) {
+                res.status(500).send("Error al buscar producto mediante ID");
+        }
 });
 
-router.delete('/products/:ID',userLicense,(req,res) =>{
-    const enviroment = async () =>{
-        let id = req.params.ID
-        await productService.deleteProductById(id);
-    }
-    enviroment()
+router.post('/products', userLicense, async (req, res) => {
+        try {
+                let product = req.body
+                let resp = await services.productService.save(product)
+                res.send([resp])
+        } catch (error) {
+                res.status(500).send("Error al buscar producto mediante ID");
+        }
+});
+
+router.delete('/products/:ID', userLicense, async (req, res) => {
+        try {
+                let id = req.params.ID
+                let resp = await services.productService.deleteOne(id)
+                res.send(resp)
+        } catch (error) {
+                res.status(500).send("Error al buscar producto mediante ID");
+        }
 })
 
 export default router

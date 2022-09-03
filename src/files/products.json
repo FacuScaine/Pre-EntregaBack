@@ -7,16 +7,26 @@
 		"Precio": "190",
 		"Stock": "300",
 		"id": 1,
-		"timestamp": "12/8/2022 12:29:07"
+		"timestamp": "31/8/2022 12:01:49"
 	},
 	{
-		"Nombre": "Cocacola",
+		"Nombre": "Fanta",
+		"Descripcion": "Bebida Gasificada",
+		"Codigo": "020",
+		"Foto": "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcQGiOX8IXz_77-dVUEGMT4ckwjlVBcpI3O17Q&usqp=CAU",
+		"Precio": "170",
+		"Stock": "250",
+		"id": 2,
+		"timestamp": "1/9/2022 09:19:29"
+	},
+	{
+		"Nombre": "Sprite",
 		"Descripcion": "Bebida Gasificada",
 		"Codigo": "010",
 		"Foto": "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcQGiOX8IXz_77-dVUEGMT4ckwjlVBcpI3O17Q&usqp=CAU",
 		"Precio": "190",
 		"Stock": "300",
-		"id": 2,
-		"timestamp": "12/8/2022 12:29:08"
+		"id": 3,
+		"timestamp": "1/9/2022 09:20:31"
 	}
 ]
