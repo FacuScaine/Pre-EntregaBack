@@ -11,7 +11,7 @@ const productSchema = mongoose.Schema({
     Stock:Number,
 },{timestamps:true})
 
-export default class Product extends MongoDBContainer{
+export default class Product extends MongoDBContainer.ProductContainer{
     constructor(){
         super(collection,productSchema);
     }

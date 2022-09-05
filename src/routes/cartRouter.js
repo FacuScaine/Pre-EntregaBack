@@ -17,7 +17,7 @@ router.post('/carts', async (req, res) => {
         let answ = await services.cartService.createCart();
         res.send(answ)
     } catch (error) {
-        res.status(500).send("Cannot get Carts");
+        res.status(500).send("Cannot create Carts");
     }
 
 })
