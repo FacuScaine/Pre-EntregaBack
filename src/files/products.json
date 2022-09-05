@@ -28,5 +28,15 @@
 		"Stock": "300",
 		"id": 3,
 		"timestamp": "1/9/2022 09:20:31"
+	},
+	{
+		"Nombre": "Fanta",
+		"Descripcion": "Bebida Gasificada",
+		"Codigo": "020",
+		"Foto": "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcQGiOX8IXz_77-dVUEGMT4ckwjlVBcpI3O17Q&usqp=CAU",
+		"Precio": "170",
+		"Stock": "250",
+		"id": 4,
+		"timestamp": "4/9/2022 23:36:20"
 	}
 ]

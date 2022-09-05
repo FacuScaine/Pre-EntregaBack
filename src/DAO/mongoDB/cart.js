@@ -1,7 +1,7 @@
 import mongoose from "mongoose";
 import MongoDBContainer from "./MongoDBContainer.js";
 
-const collection ='products';
+const collection ='carts';
 const productSchema = mongoose.Schema({
     Nombre:String,
     Descripcion:String,

@@ -1,7 +1,7 @@
 import express from "express";
 import __dirname from './utils.js';
 import productRouter from './routes/productRouter.js';
-// import cartRouter from './routes/cartRouter.js';
+import cartRouter from './routes/cartRouter.js';
 
 const app = express();
 
@@ -14,6 +14,6 @@ app.use(express.static(__dirname + '/public'));
 app.use(express.json());
 
 app.use('/api',productRouter);
-// app.use('/api',cartRouter);
+app.use('/api',cartRouter);
 
 export default admin

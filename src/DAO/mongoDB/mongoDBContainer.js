@@ -1,6 +1,6 @@
 import mongoose from "mongoose";
 
-export default class MongoDBContainer{
+ class ProductContainer{
     constructor(collection,schema){
         mongoose.connect('mongodb+srv://FacuScaine:Scaine1234@backend-coder.bvphsqh.mongodb.net/?retryWrites=true&w=majority')
         this.model = mongoose.model(collection,schema);
@@ -26,4 +26,15 @@ export default class MongoDBContainer{
         let results = await this.model.updateOne({"Nombre":{$eq:id}},{$set:newProduct});
         return results
     }
+};
+
+class CartContainer{
+    
 }
+
+const MongoDbContainer = {
+    ProductContainer,
+    CartContainer
+};
+
+export default MongoDbContainer
