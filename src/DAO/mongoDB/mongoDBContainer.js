@@ -52,19 +52,19 @@ class CartContainer{
         } catch (error) { console.log(error) }
     }
 
-    getProductsById = async (id) => {
-        try {
-            let results = await this.model.find({"_id":{$eq:id}},{"products":1})
-            return results
-        } catch (error) { console.log(error) }
-    };
-
-    // addProductToCart = async (id, product) => {
+    // getProductsById = async (id) => {
     //     try {
-    //         let result = await this.model.find({"_id":{$eq:id}},{$and:[{$set:}]})
-    //         return result
+    //         let results = await this.model.find({"_id":{$eq:id}},{"products":1})
+    //         return results
     //     } catch (error) { console.log(error) }
     // };
+
+    addProductToCart = async (id, product) => {
+        try {
+            let result = await this.model.find({"_id":{$eq:id}},{$and:[{$set:}]})
+            return result
+        } catch (error) { console.log(error) }
+    };
 
 }
 
